@@ -1,0 +1,31 @@
+{
+  "name": "medicaljs",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "webpack serve --open --config webpack.config.js",
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv-webpack": "^8.1.0",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {
+    "@aws-sdk/client-transcribe-streaming": "^3.651.1",
+    "aws-sdk": "^2.1691.0",
+    "buffer": "^6.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "fs": "^0.0.1-security",
+    "microphone-stream": "^6.0.1",
+    "multer": "^1.4.5-lts.1",
+    "openai": "^4.63.0",
+    "process": "^0.11.10"
+  }
+}

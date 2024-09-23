@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Consultas Médicas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        #mic {
+            font-size: 50px;
+            display: none;
+            color: green;
+        }
+        #mic.recording {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Registro de Consultas Médicas</h1>
+        <div class="text-center">
+          <button id="startRecording" class="btn btn-primary btn-lg">
+            <i class="fas fa-play"></i> Iniciar Grabación
+        </button>
+        <button id="stopRecording" class="btn btn-danger btn-lg" style="display: none;">
+            <i class="fas fa-stop"></i> Detener Grabación
+        </button>
+        <div id="mic" class="text-center">
+          <i class="fa-solid fa-microphone" style="color: #2c4981;"></i>       
+        </div>
+            <div id="transcription"></div>
+        </div>
+       
+
+        <div id="formContainer" style="display: none;" class="mt-5">
+            <h2>Información del Paciente</h2>
+            <form id="patientForm">
+              <div class="form-group">
+                  <label for="namePatient">Nombre del Paciente</label>
+                  <input type="text" class="form-control" id="namePatient" required>
+              </div>
+              <div class="form-group">
+                  <label for="agePatient">Edad</label>
+                  <input type="number" class="form-control" id="agePatient" required>
+              </div>
+              <div class="form-group">
+                  <label for="dateConsultation">Fecha de Consulta</label>
+                  <input type="date" class="form-control" id="dateConsultation" required>
+              </div>
+              <div class="form-group">
+                  <label for="numberHc">Nro Historia Clínica</label>
+                  <input type="text" class="form-control" id="numberHc">
+              </div>
+              <div class="form-group">
+                  <label for="reasonConsultation">Motivo de Consulta</label>
+                  <textarea class="form-control" id="reasonConsultation" rows="3" required></textarea>
+              </div>
+              <div class="form-group">
+                  <label for="datePatient">Fecha de Nacimiento</label>
+                  <input type="date" class="form-control" id="datePatient">
+              </div>
+              <div class="form-group">
+                  <label for="sexPatient">Sexo</label>
+                  <select class="form-control" id="sexPatient">
+                      <option value="">Seleccione</option>
+                      <option value="Masculino">Masculino</option>
+                      <option value="Femenino">Femenino</option>
+                      <option value="Otro">Otro</option>
+                  </select>
+              </div>
+              <div class="form-group">
+                  <label for="statusMaritalPatient">Estado Civil</label>
+                  <input type="text" class="form-control" id="statusMaritalPatient">
+              </div>
+              <div class="form-group">
+                  <label for="nationalityPatient">Nacionalidad</label>
+                  <input type="text" class="form-control" id="nationalityPatient">
+              </div>
+              <div class="form-group">
+                  <label for="placeBirthPatient">Lugar de Nacimiento</label>
+                  <input type="text" class="form-control" id="placeBirthPatient">
+              </div>
+              <div class="form-group">
+                  <label for="placeOriginPatient">Lugar de Procedencia</label>
+                  <input type="text" class="form-control" id="placeOriginPatient">
+              </div>
+              <div class="form-group">
+                  <label for="addressPatient">Residencia Actual</label>
+                  <input type="text" class="form-control" id="addressPatient">
+              </div>
+              <div class="form-group">
+                  <label for="phonePatient">Teléfono</label>
+                  <input type="text" class="form-control" id="phonePatient">
+              </div>
+              <div class="form-group">
+                  <label for="medicalHistory">Antecedentes Médicos</label>
+                  <textarea class="form-control" id="medicalHistory" rows="3"></textarea>
+              </div>
+              <div class="form-group">
+                  <label for="familyHistory">Antecedentes Familiares</label>
+                  <textarea class="form-control" id="familyHistory" rows="3"></textarea>
+              </div>
+              <div class="form-group">
+                  <label for="observations">Observaciones</label>
+                  <textarea class="form-control" id="observations" rows="3"></textarea>
+              </div>
+              <div class="form-group">
+                  <label for="diagnosis">Diagnóstico Preliminar</label>
+                  <textarea class="form-control" id="diagnosis" rows="3"></textarea>
+              </div>
+              <div class="form-group">
+                  <label for="treatment">Plan de Tratamiento</label>
+                  <textarea class="form-control" id="treatment" rows="3"></textarea>
+              </div>
+              <div class="form-group">
+                  <label for="recommendations">Recomendaciones</label>
+                  <textarea class="form-control" id="recommendations" rows="3"></textarea>
+              </div>
+              <div class="form-group">
+                  <label for="followUp">Seguimiento</label>
+                  <textarea class="form-control" id="followUp" rows="3"></textarea>
+              </div>
+              <br>
+              <button type="submit" id="generatePDF" class="btn btn-success">Generar pdf</button>
+          </form>
+          
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        document.getElementById("generatePDF").addEventListener("click", function () {
+          const { jsPDF } = window.jspdf;
+          const doc = new jsPDF();
+      
+          // Obtener valores del formulario
+          const namePatient = document.getElementById("namePatient").value;
+          const agePatient = document.getElementById("agePatient").value;
+          const dateConsultation = document.getElementById("dateConsultation").value;
+          const numberHc = document.getElementById("numberHc").value;
+          const reasonConsultation = document.getElementById("reasonConsultation").value;
+          const datePatient = document.getElementById("datePatient").value;
+          const sexPatient = document.getElementById("sexPatient").value;
+          const statusMaritalPatient = document.getElementById("statusMaritalPatient").value;
+          const nationalityPatient = document.getElementById("nationalityPatient").value;
+          const placeBirthPatient = document.getElementById("placeBirthPatient").value;
+          const placeOriginPatient = document.getElementById("placeOriginPatient").value;
+          const addressPatient = document.getElementById("addressPatient").value;
+          const phonePatient = document.getElementById("phonePatient").value;
+          const medicalHistory = document.getElementById("medicalHistory").value;
+          const familyHistory = document.getElementById("familyHistory").value;
+          const observations = document.getElementById("observations").value;
+          const diagnosis = document.getElementById("diagnosis").value;
+          const treatment = document.getElementById("treatment").value;
+          const recommendations = document.getElementById("recommendations").value;
+          const followUp = document.getElementById("followUp").value;
+      
+          // Título principal
+          doc.setFontSize(20);
+          doc.text("Información del Paciente", 10, 10);
+          doc.text(" ", 10, 10);
+          doc.text(" ", 10, 10);
+          
+          // Subtítulo
+          doc.setFontSize(16);
+          doc.text("Datos Generales", 10, 20);
+          
+          // Datos del paciente
+          doc.setFontSize(12);
+          doc.text(`Nombre del Paciente: ${namePatient}`, 10, 30);
+          doc.text(`Edad: ${agePatient}`, 10, 40);
+          doc.text(`Fecha de Consulta: ${dateConsultation}`, 10, 50);
+          doc.text(`Nro Historia Clínica: ${numberHc}`, 10, 60);
+          doc.text(`Motivo de Consulta:`, 10, 70);
+          doc.setFontSize(10);
+          const reasonLines = doc.splitTextToSize(reasonConsultation || "Ninguno", 190);
+          doc.text(reasonLines || "Ninguno", 10, 80);
+          doc.setFontSize(12); // Volver a tamaño normal para el resto
+          doc.text(`Fecha de Nacimiento: ${datePatient}`, 10, 100);
+          doc.text(`Sexo: ${sexPatient}`, 10, 110);
+          doc.text(`Estado Civil: ${statusMaritalPatient}`, 10, 120);
+          doc.text(`Nacionalidad: ${nationalityPatient}`, 10, 130);
+          doc.text(`Lugar de Nacimiento: ${placeBirthPatient}`, 10, 140);
+          doc.text(`Lugar de Procedencia: ${placeOriginPatient}`, 10, 150);
+          doc.text(`Residencia Actual: ${addressPatient}`, 10, 160);
+          doc.text(`Teléfono: ${phonePatient}`, 10, 170);
+      
+          // Subtítulos para antecedentes
+          doc.setFontSize(16);
+          doc.text("Antecedentes Médicos", 10, 180);
+          doc.setFontSize(10);
+          const medicalHistoryLines = doc.splitTextToSize(medicalHistory || "Ninguno", 190);
+          doc.text(medicalHistoryLines, 10, 190);
+      
+          doc.setFontSize(16);
+          doc.text("Antecedentes Familiares", 10, 210);
+          doc.setFontSize(10);
+          const familyHistoryLines = doc.splitTextToSize(familyHistory || "Ninguno", 190);
+          doc.text(familyHistoryLines || "Ninguno", 10, 220);
+      
+          // Observaciones
+          doc.setFontSize(16);
+          doc.text("Observaciones", 10, 240);
+          doc.setFontSize(10);
+          const observationsLines = doc.splitTextToSize(observations || "Ninguno", 190);
+          doc.text(observationsLines || "Ninguno", 10, 250);
+      
+          // Diagnóstico
+          doc.setFontSize(16);
+          doc.text("Diagnóstico Preliminar", 10, 270);
+          doc.setFontSize(10);
+          const diagnosisLines = doc.splitTextToSize(diagnosis || "Ninguno", 190);
+          doc.text(diagnodiagnosisLinessis || "Ninguno", 10, 280);
+      
+          // Plan de tratamiento
+          doc.setFontSize(16);
+          doc.text("Plan de Tratamiento", 10, 300);
+          doc.setFontSize(10);
+          const treatmentLines = doc.splitTextToSize(treatment || "Ninguno", 190);
+          doc.text(treatmentLines || "Ninguno", 10, 310);
+      
+          // Recomendaciones
+          doc.setFontSize(16);
+          doc.text("Recomendaciones", 10, 330);
+          doc.setFontSize(10);
+          const recommendationsLines = doc.splitTextToSize(recommendations || "Ninguno", 190);
+          doc.text(recommendationsLines || "Ninguno", 10, 340);
+      
+          // Seguimiento
+          doc.setFontSize(16);
+          doc.text("Seguimiento", 10, 360);
+          doc.setFontSize(10);
+          const followUpLines = doc.splitTextToSize(followUp || "Ninguno", 190);
+          doc.text(followUpLines || "Ninguno", 10, 370);
+      
+          // Guardar el PDF
+          doc.save("informacion_paciente.pdf");
+        });
+      </script>
+      
+      
+      
+
+</body>
+</html>
