@@ -44,8 +44,8 @@ stopButton.addEventListener("click", async () => {
   document.getElementById("stopRecording").style.display = "none";
   document.getElementById("formContainer").style.display = "block";
 
-  transcription =
-    "Speaker 0: me llamo Janina. Tengo veintiuno años hace dos años tengo dolores de cabeza, en la parte frontal. Speaker 0: cada semana tengo dolores de cabeza. Speaker 0: mi padres, ambos tienen diabetes. Speaker 0: desde hace aproximadamente cinco años. Mi mamá y hace seis años mi papá. Speaker 0: no tengo más antecedentes familiares. Speaker 0: vivo en calle. Speaker 0: son ciento cinco en Arequipa. Speaker 0: nacido el diecinueve de septiembre de mil novecientos noventa y nueve. Speaker 0: actualmente tomó Fermentina y. Speaker 0: en las noches tomó algunas pastillas para el lado de la cabeza.";
+  // transcription =
+  //   "Speaker 0: me llamo Janina. Tengo veintiuno años hace dos años tengo dolores de cabeza, en la parte frontal. Speaker 0: cada semana tengo dolores de cabeza. Speaker 0: mi padres, ambos tienen diabetes. Speaker 0: desde hace aproximadamente cinco años. Mi mamá y hace seis años mi papá. Speaker 0: no tengo más antecedentes familiares. Speaker 0: vivo en calle. Speaker 0: son ciento cinco en Arequipa. Speaker 0: nacido el diecinueve de septiembre de mil novecientos noventa y nueve. Speaker 0: actualmente tomó Fermentina y. Speaker 0: en las noches tomó algunas pastillas para el lado de la cabeza.";
   transcriptionDiv.innerHTML = transcription;
   //return;
   const data = await formatearHistoriaClinica(transcription);
